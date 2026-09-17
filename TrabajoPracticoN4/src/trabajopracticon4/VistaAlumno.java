@@ -145,7 +145,7 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
                     String apellido = txtApellido.getText().trim();
                     if(nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+") && apellido.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")){
                         Alumno alummno = new Alumno(nroLegajo,apellido,nombre,null);
-                        listaAlumnos.add(alummno);
+                        MenuPrincipalFrame.listaAlumnos.add(alummno);
                         txtLegajo.setText("");
                         txtApellido.setText("");
                         txtNombre.setText("");

@@ -60,7 +60,7 @@ public class Materia {
 
     @Override
     public String toString() {
-        return  "nombre: " + nombre ;
+        return nombre ;
     }
     
     

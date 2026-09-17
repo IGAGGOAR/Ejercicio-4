@@ -2,16 +2,17 @@ package trabajopracticon4;
 
 import java.util.HashSet;
 public class Alumno {
-    private int legajo;
+   private int legajo;
     private String apellido;
     private String nombre;
     private HashSet<Materia> materias;
 
-    public Alumno(int legajo, String apellido, String nombre, HashSet materias) {
+    public Alumno(int legajo, String apellido, String nombre, HashSet<Materia> materias) {
         this.legajo = legajo;
         this.apellido = apellido;
         this.nombre = nombre;
-        this.materias = materias;
+        // Si mandan null desde la vista, inicializamos un HashSet vacío para evitar NullPointerException
+        this.materias = (materias != null) ? materias : new HashSet<>();
     }
 
     public int getLegajo() {
@@ -39,6 +40,9 @@ public class Alumno {
     }
 
     public HashSet<Materia> getMaterias() {
+        if (this.materias == null) {
+            this.materias = new HashSet<>();
+        }
         return materias;
     }
 
@@ -46,13 +50,25 @@ public class Alumno {
         this.materias = materias;
     }
     
-    public void agregarMaterias(Materia m){
+    // Método en singular para la vista
+    public void agregarMateria(Materia m) {
+        if (this.materias == null) {
+            this.materias = new HashSet<>();
+        }
         boolean yaAgregada = materias.add(m);
-        if(!yaAgregada){
+        if (!yaAgregada) {
             System.out.println("El alumno ya esta en la materia");
         }
     }
-    public int cantidadMaterias(){
+
+    public void agregarMaterias(Materia m) {
+        agregarMateria(m);
+    }
+
+    public int cantidadMaterias() {
+        if (this.materias == null) {
+            return 0;
+        }
         return materias.size();
     }
 
@@ -77,5 +93,10 @@ public class Alumno {
         final Alumno other = (Alumno) obj;
         return this.legajo == other.legajo;
     }
-    
+
+    // Crucial para que el JComboBox muestre el texto correcto
+    @Override
+    public String toString() {
+        return apellido + ", " + nombre + " (Legajo: " + legajo + ")";
+    }
 }
