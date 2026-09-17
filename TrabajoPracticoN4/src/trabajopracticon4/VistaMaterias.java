@@ -75,9 +75,19 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
 
         jBnuevo.setText("Nuevo");
         jBnuevo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBnuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBnuevoActionPerformed(evt);
+            }
+        });
 
         jBsalir.setText("Salir");
         jBsalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBsalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBsalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,8 +155,43 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTcodigoMateriaActionPerformed
 
     private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
-        // TODO add your handling code here:
+try {
+    int id = Integer.parseInt(jTcodigoMateria.getText().trim());
+    String nombre = jTnombreMateria.getText().trim();
+    int anio = Integer.parseInt(jTanio.getText().trim());
+
+    if (nombre.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar un nombre.");
+        return;
+    }
+
+    Materia m = new Materia(id, nombre, anio);
+
+    if (materias.add(m)) {
+        javax.swing.JOptionPane.showMessageDialog(this, "¡Materia guardada con éxito!");
+        jTcodigoMateria.setText("");
+        jTnombreMateria.setText("");
+        jTanio.setText("");
+        jTcodigoMateria.requestFocus();
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "La materia con código " + id + " ya existe.");
+    }
+
+} catch (NumberFormatException ex) {
+    javax.swing.JOptionPane.showMessageDialog(this, "El código y el año deben ser números enteros.");
+}           
     }//GEN-LAST:event_jBguardarActionPerformed
+
+    private void jBnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBnuevoActionPerformed
+      jTcodigoMateria.setText("");
+      jTnombreMateria.setText("");
+      jTanio.setText("");
+      jTcodigoMateria.requestFocus(); 
+    }//GEN-LAST:event_jBnuevoActionPerformed
+
+    private void jBsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBsalirActionPerformed
+      dispose();       
+    }//GEN-LAST:event_jBsalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
